@@ -1,0 +1,64 @@
+version: '3.4'
+
+services:
+  conversation-api1:
+    image: ${DOCKER_REGISTRY-}conversationapi1
+    build:
+      context: .
+      dockerfile: Conversation.Api1/Dockerfile
+    ports:
+      - "5010:80"
+
+  conversation-api1-dapr:
+    container_name: conversation-api1-dapr
+    image: "daprio/daprd:latest"
+    command: [ "./daprd", "--log-level", "debug", "-app-id", "conversation-api1", "-app-port", "80", "--components-path", "/components", "-config", "/configuration/conversation-config.yaml" ]    
+    volumes:
+      - "./dapr/components/:/components"
+      - "./dapr/configuration/:/configuration"
+    depends_on:
+      - conversation-api1
+      - redis
+      - nats
+    network_mode: "service:conversation-api1"
+
+  nats:
+    container_name: "Nats"
+    image: nats
+    command: [ "-js", "-m", "8222" ]
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+      - "6222:6222"
+
+  postgres:
+    container_name: "PostgreSQL"
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=rotring123
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - .\\docker-volumes\\postgreSQL:/var/lib/postgresql/data
+    ports:
+      - "8081:8080"
+      - "5432:5432"
+
+  redis:
+    container_name: Redis
+    image: redis
+    ports:
+      - "6380:6379"
+    volumes:
+      - .\\docker-volumes\\redis:/usr/local/etc/redis
+
+  dapr-placement:
+    container_name: Dapr-service-descovery
+    image: "daprio/dapr:1.0.0"
+    command: ["./placement", "-port", "50000", "-log-level", "debug"]
+    ports:
+      - "50000:50000"
+
+  zipkin:
+    image: openzipkin/zipkin-slim
+    ports:
+      - "5411:9411"
