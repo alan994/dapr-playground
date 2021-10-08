@@ -19,17 +19,22 @@ services:
     depends_on:
       - conversation-api1
       - redis
-      - nats
+      - rabbitmq
     network_mode: "service:conversation-api1"
 
-  nats:
-    container_name: "Nats"
-    image: nats
-    command: [ "-js", "-m", "8222" ]
+  # nats:
+  #   container_name: "Nats"
+  #   image: nats
+  #   command: [ "-js", "-m", "8222" ]
+  #   ports:
+  #     - "4222:4222"
+  #     - "8222:8222"
+  #     - "6222:6222"
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
     ports:
-      - "4222:4222"
-      - "8222:8222"
-      - "6222:6222"
+      - "5672:5672"
+      - "15672:15672"
 
   postgres:
     container_name: "PostgreSQL"

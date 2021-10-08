@@ -10,7 +10,7 @@ namespace Conversation.Api1.Controllers
 {
     [ApiController]
     [Route("home")]
-    public class HomeController : ControllerBase
+    public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -20,13 +20,13 @@ namespace Conversation.Api1.Controllers
         }
 
         [HttpGet]
-        public async Task<string> Get([FromServices] DaprClient daprClient)
+        public async Task<ActionResult> Get([FromServices] DaprClient daprClient)
         {
-            await daprClient.SaveStateAsync("conversation.api1", "pero", "alan");
+            await daprClient.SaveStateAsync("conversation-statestore", "pero", "Jebeno, radi!");
 
-            var value = daprClient.GetStateAsync<string>("conversation.api1", "pero");
+            var value = await daprClient.GetStateAsync<string>("conversation-statestore", "pero");
 
-            return "Dominik: " + value;
+            return Json(value);
         }
     }
 }
