@@ -1,6 +1,8 @@
-﻿using Dapr.Client;
+﻿using Dapr;
+using Dapr.Client;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,5 +30,20 @@ namespace Conversation.Api1.Controllers
 
             return Json(value);
         }
+
+        [HttpPost("conversations")]
+        //[Route("conversations")]
+        [Topic("conversation-pubsub", "conversations")]
+        public async Task<ActionResult> Get(User user)
+        {
+            this._logger.LogInformation("Message received: {0}", JsonConvert.SerializeObject(user));
+            return Ok();
+        }
     }
+}
+
+public class User
+{
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
 }

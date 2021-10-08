@@ -22,6 +22,26 @@ services:
       - rabbitmq
     network_mode: "service:conversation-api1"
 
+  conversation-api2:
+    image: ${DOCKER_REGISTRY-}conversationapi2
+    build:
+      context: .
+      dockerfile: Conversation.Api2/Dockerfile
+    ports:
+      - "5011:80"
+
+  conversation-api2-dapr:
+    container_name: conversation-api2-dapr
+    image: "daprio/daprd:latest"
+    command: [ "./daprd", "--log-level", "debug", "-app-id", "conversation-api2", "-app-port", "80", "--components-path", "/components", "-config", "/configuration/conversation-config.yaml" ]    
+    volumes:
+      - "./dapr/components/:/components"
+      - "./dapr/configuration/:/configuration"
+    depends_on:
+      - conversation-api2
+      - redis
+      - rabbitmq
+    network_mode: "service:conversation-api2"
   # nats:
   #   container_name: "Nats"
   #   image: nats
