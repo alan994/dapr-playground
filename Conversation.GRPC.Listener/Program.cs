@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -20,6 +21,12 @@ namespace Conversation.GRPC.Listener
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureKestrel(options =>
+                    {
+                        // Setup a HTTP/2 endpoint without TLS.
+                        options.ListenLocalhost(5050, o => o.Protocols =
+                            HttpProtocols.Http2);
+                    });
                     webBuilder.UseStartup<Startup>();
                 });
     }

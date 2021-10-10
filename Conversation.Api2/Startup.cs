@@ -51,11 +51,11 @@ namespace Conversation.Api2
                     };
 
                     var dapr = context.RequestServices.GetRequiredService<DaprClient>();
-                    await dapr.PublishEventAsync("conversation-pubsub", "email", message);
+                    await dapr.PublishEventAsync("conversation-pubsub", "mail", message);
                     await context.Response.WriteAsync("Email sent");
                 });
 
-                endpoints.MapGet("/", async (HttpContext context) =>
+                endpoints.MapGet("/sms", async (HttpContext context) =>
                 {
                     var message = new Message()
                     {

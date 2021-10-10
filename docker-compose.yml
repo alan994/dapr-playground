@@ -42,6 +42,29 @@ services:
       - redis
       - rabbitmq
     network_mode: "service:conversation-api2"
+
+  conversation-grpc-listener:
+    image: ${DOCKER_REGISTRY-}conversation-grpc-listener
+    build:
+      context: .
+      dockerfile: Conversation.GRPC.Listener/Dockerfile
+    ports:
+      - "5012:80"
+      - "5050:5050"
+
+  conversation-grpc-listener-dapr:
+    container_name: conversation-grpc-listener-dapr
+    image: "daprio/daprd:latest"
+    command: [ "./daprd", "--log-level", "debug", "-app-id", "conversation-grpc-listener", "-app-port", "5050", "--app-protocol", "grpc", "--components-path", "/components", "-config", "/configuration/conversation-config.yaml" ]    
+    volumes:
+      - "./dapr/components/:/components"
+      - "./dapr/configuration/:/configuration"
+    depends_on:
+      - conversation-grpc-listener
+      - redis
+      - rabbitmq
+    network_mode: "service:conversation-grpc-listener"
+    
   # nats:
   #   container_name: "Nats"
   #   image: nats

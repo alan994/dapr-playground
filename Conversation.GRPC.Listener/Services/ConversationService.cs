@@ -36,12 +36,12 @@ namespace Conversation.GRPC.Listener.Services
             result.Subscriptions.Add(new TopicSubscription
             {
                 PubsubName = "conversation-pubsub",
-                Topic = "send-mail"
+                Topic = "mail"
             });
             result.Subscriptions.Add(new TopicSubscription
             {
                 PubsubName = "conversation-pubsub",
-                Topic = "send-sms"
+                Topic = "sms"
             });
             return Task.FromResult(result);
         }
@@ -60,7 +60,7 @@ namespace Conversation.GRPC.Listener.Services
             {
                 var input = JsonConvert.DeserializeObject<Message>(request.Data.ToStringUtf8());
                                 
-                if (request.Topic == "email")
+                if (request.Topic == "mail")
                 {
                     Email(input);
                 }
