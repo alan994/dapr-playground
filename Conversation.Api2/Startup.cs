@@ -1,3 +1,4 @@
+﻿using Conversation.shared;
 using Dapr.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -37,6 +38,36 @@ namespace Conversation.Api2
                     var dapr = context.RequestServices.GetRequiredService<DaprClient>();
                     await dapr.PublishEventAsync("conversation-pubsub", "conversations", new User{ FirstName = "Alan", LastName = "Jagar" });
                     await context.Response.WriteAsync("Poruka poslana");
+                });
+
+                endpoints.MapGet("/email", async (HttpContext context) =>
+                {
+                    var message = new Message()
+                    {
+                        Body = "Ovo je sadržaj poruke. " + DateTime.Now.ToString(),
+                        Receiver = "Dominik Borović",
+                        Sender = "Alan Jagar",
+                        Type = MessageType.Email
+                    };
+
+                    var dapr = context.RequestServices.GetRequiredService<DaprClient>();
+                    await dapr.PublishEventAsync("conversation-pubsub", "email", message);
+                    await context.Response.WriteAsync("Email sent");
+                });
+
+                endpoints.MapGet("/", async (HttpContext context) =>
+                {
+                    var message = new Message()
+                    {
+                        Body = "Ovo je sadržaj poruke. " + DateTime.Now.ToString(),
+                        Receiver = "Leopold Mandić",
+                        Sender = "Alan Jagar",
+                        Type = MessageType.SMS
+                    };
+
+                    var dapr = context.RequestServices.GetRequiredService<DaprClient>();
+                    await dapr.PublishEventAsync("conversation-pubsub", "sms", message);
+                    await context.Response.WriteAsync("SMS Sent");
                 });
             });
         }
