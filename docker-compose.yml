@@ -20,6 +20,7 @@ services:
       - conversation-api1
       - redis
       - rabbitmq
+      - nats
     network_mode: "service:conversation-api1"
 
   conversation-api2:
@@ -41,6 +42,7 @@ services:
       - conversation-api2
       - redis
       - rabbitmq
+      - nats
     network_mode: "service:conversation-api2"
 
   conversation-grpc-listener:
@@ -63,16 +65,18 @@ services:
       - conversation-grpc-listener
       - redis
       - rabbitmq
+      - nats
     network_mode: "service:conversation-grpc-listener"
     
-  # nats:
-  #   container_name: "Nats"
-  #   image: nats
-  #   command: [ "-js", "-m", "8222" ]
-  #   ports:
-  #     - "4222:4222"
-  #     - "8222:8222"
-  #     - "6222:6222"
+  nats:
+    container_name: "Nats"
+    image: nats
+    command: [ "-js", "-m", "8222", "-D", "-V" ]
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+      - "6222:6222"
+
   rabbitmq:
     image: rabbitmq:3-management-alpine
     ports:

@@ -1,0 +1,24 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "composeLaunchAction": "None",
+      "composeLaunchServiceName": "conversation-grpc-listener",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "conversation-api1": "StartDebugging",
+        "conversation-api1-dapr": "StartWithoutDebugging",
+        "conversation-api2": "StartDebugging",
+        "conversation-api2-dapr": "StartWithoutDebugging",
+        "conversation-grpc-listener": "StartDebugging",
+        "conversation-grpc-listener-dapr": "StartWithoutDebugging",
+        "dapr-placement": "StartWithoutDebugging",
+        "nats": "StartWithoutDebugging",
+        "postgres": "StartWithoutDebugging",
+        "rabbitmq": "StartWithoutDebugging",
+        "redis": "StartWithoutDebugging",
+        "zipkin": "StartWithoutDebugging"
+      }
+    }
+  }
+}
