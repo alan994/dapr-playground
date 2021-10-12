@@ -23,4 +23,13 @@
     <ProjectReference Include="..\Conversation.shared\Conversation.shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Protobuf Include="..\Conversation.GRPC.Service\Protos\greet.proto" GrpcServices="None">
+      <Link>Protos\greet.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\Protos\message.proto" GrpcServices="None">
+      <Link>Protos\message.proto</Link>
+    </Protobuf>
+  </ItemGroup>
+
 </Project>

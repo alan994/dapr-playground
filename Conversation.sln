@@ -13,6 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conversation.GRPC.Listener"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conversation.shared", "Conversation.shared\Conversation.shared.csproj", "{52201FAF-82DE-4A76-81C8-7B07DAD45E65}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conversation.GRPC.Service", "Conversation.GRPC.Service\Conversation.GRPC.Service.csproj", "{DA23027E-2CB0-4A3B-A285-585D6BAD54D0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Protos", "Protos", "{8BACD4D7-B157-4072-A3C7-C7522789D753}"
+	ProjectSection(SolutionItems) = preProject
+		Protos\message.proto = Protos\message.proto
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +46,10 @@ Global
 		{52201FAF-82DE-4A76-81C8-7B07DAD45E65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52201FAF-82DE-4A76-81C8-7B07DAD45E65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52201FAF-82DE-4A76-81C8-7B07DAD45E65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA23027E-2CB0-4A3B-A285-585D6BAD54D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA23027E-2CB0-4A3B-A285-585D6BAD54D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA23027E-2CB0-4A3B-A285-585D6BAD54D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA23027E-2CB0-4A3B-A285-585D6BAD54D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

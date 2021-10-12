@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option csharp_namespace = "Conversation.GRPC.Generated";
+
+package conversation;
+
+// The greeting service definition.
+service Conversation {
+  // Sends a greeting
+  rpc Sms (Message) returns (Empty);
+  rpc Mail (Message) returns (Empty);
+}
+
+// The request message containing the user's name.
+message Message {
+  MessageType type = 1;
+  string sender = 2;
+  string receiver = 3;
+  string body = 4;
+}
+
+enum MessageType {
+	Email = 0;
+	SMS = 1;
+}
+
+message Empty {
+
+}
