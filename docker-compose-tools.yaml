@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  pgadmin:
+    container_name: "PgAdmin"
+    image: dpage/pgadmin4    
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=rotring123
+    volumes:
+      - .\\postgresql-config\\pgadmin-servers.json:/pgadmin4/servers.json
+      - .\\postgresql-config\\postgresql-password.pgpass:/pgadmin4/postgresql-password.pgpass
+      - .\\docker-volumes\\pgadmin-data:/var/lib/pgadmin
+    ports:
+      - "8082:80"

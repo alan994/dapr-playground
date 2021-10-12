@@ -1,25 +1,25 @@
-# apiVersion: dapr.io/v1alpha1
-# kind: Component
-# metadata:
-#   name: conversation-pubsub-nats
-#   namespace: default
-# spec:
-#   type: pubsub.jetstream
-#   version: v1
-#   metadata:
-#   - name: natsURL
-#     value: "nats://localhost:4222"
-#   - name: name
-#     value: "alan"
-#   - name: durableName
-#     value: "conversation-durable"
-#   - name: queueGroupName
-#     value: "conversation-group"
-#   - name: startSequence
-#     value: 1
-#   - name: startTime # in Unix format
-#     value: 1630349391
-#   - name: deliverAll
-#     value: false
-#   - name: flowControl
-#     value: false
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: conversation-pubsub
+  namespace: default
+spec:
+  type: pubsub.jetstream
+  version: v1
+  metadata:
+  - name: natsURL
+    value: "nats://nats:4222"
+  - name: name
+    value: "alan"
+  - name: durableName
+    value: "conversation-durable"
+  - name: queueGroupName
+    value: "conversation-group"
+  - name: startSequence
+    value: 1
+  - name: startTime # in Unix format
+    value: 1630349391
+  - name: deliverAll
+    value: false
+  - name: flowControl
+    value: false

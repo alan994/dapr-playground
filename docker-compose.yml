@@ -100,12 +100,6 @@ services:
       - "8222:8222"
       - "6222:6222"
 
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-
   postgres:
     container_name: "PostgreSQL"
     image: postgres

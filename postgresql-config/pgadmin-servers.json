@@ -1,0 +1,14 @@
+{
+    "Servers": {
+        "1": {
+            "Name": "Conversations server",
+            "Group": "TalentLyft",
+            "Port": 5432,
+            "Username": "postgres",
+            "PassFile": "./postgresql-password.pgpass",
+            "Host": "host.docker.internal",
+            "SSLMode": "prefer",
+            "MaintenanceDB": "postgres"
+        }
+    }
+}
